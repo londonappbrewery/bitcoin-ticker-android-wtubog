@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
 //                Log.i("Bitcoin", btcData.getmPrice());
                 mPriceTextView.setText(formatter.format(btcData.getmPrice()) + " " + currency);
                 mPriceTextView.setVisibility(View.VISIBLE);
+                
                 pb.setVisibility(View.GONE);
             }
         });
