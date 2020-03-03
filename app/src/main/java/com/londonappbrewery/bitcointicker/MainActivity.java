@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     TextView mPriceTextView;
 
     ArrayAdapter<CharSequence> mAdapter;
+
+    ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        pb = findViewById(R.id.indeterminateBar);
+
     }
 
     @Override
@@ -86,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO: complete the letsDoSomeNetworking() method
     private void letsDoSomeNetworking(final String currency) {
-        mPriceTextView.setText(R.string.label_default_text);
+        mPriceTextView.setVisibility(View.INVISIBLE);
+        pb.setVisibility(View.VISIBLE);
         String url = BASE_URL + currency;
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -99,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
                 DecimalFormat formatter = new DecimalFormat("#,###,###");
 //                Log.i("Bitcoin", btcData.getmPrice());
                 mPriceTextView.setText(formatter.format(btcData.getmPrice()) + " " + currency);
+                mPriceTextView.setVisibility(View.VISIBLE);
+                pb.setVisibility(View.GONE);
             }
         });
 
